@@ -8,8 +8,8 @@ data = ""
 
 with open(file) as f:
 	data = f.read()
-	data = re.sub("[0-9]+",'',data)
-	data = re.sub("\s",'',data)
+	data = re.sub("[0-9]+", '', data)
+	data = re.sub("\s", '', data)
 
 with open(file,'w') as f:
 	f.write(identifier)
