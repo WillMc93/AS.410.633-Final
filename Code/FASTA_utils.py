@@ -4,15 +4,17 @@ import re
 
 def fasta_read(filename):
 	with open(filename) as f:
-		data = f.read()
-		data = re.sub(r'[0-9]+', '', data)
-		data = re.sub(r'\s', '', data)
+		data = f.read() # get full contents
+		data = re.sub(r'>[.]+\n', '', data) # kill identifier
+		data = re.sub(r'[0-9]+|\s', '', data) # kill line numbers/whitespace
+		return data
 
-def fasta_write(filename, data, id):
-	with open(filename, 'w') as f:
-		f.write('>{}'.format(id))
+def fasta_write(filename, data, id, writemode='w'):
+	with open(filename, writemode) as f:
+		f.write('>{}\n'.format(id)) # add identifier
 
-		i = 80
+		# write 80 chars at a time for a nice file
+		i = 0
 		while i < len(data):
 			f.write(data[i:i+80] + '\n')
 			i += 80
