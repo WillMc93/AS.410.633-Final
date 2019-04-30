@@ -5,7 +5,7 @@ import re
 def fasta_read(filename):
 	with open(filename) as f:
 		data = f.read() # get full contents
-		data = re.sub(r'>[.]+\n', '', data) # kill identifier
+		data = re.sub(r'>.+\n', '', data) # kill identifier
 		data = re.sub(r'[0-9]+|\s', '', data) # kill line numbers/whitespace
 		return data
 
@@ -18,3 +18,10 @@ def fasta_write(filename, data, id, writemode='w'):
 		while i < len(data):
 			f.write(data[i:i+80] + '\n')
 			i += 80
+
+def fasta_check(filename, data):
+	check = fasta_read(filename)
+
+	if len(check) != len(data):
+		print(len(check), len(data))
+		return
