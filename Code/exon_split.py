@@ -8,11 +8,11 @@ exons = {1: (0, 510), 2: (1400, 1640), 3: (2298, 2538), 4: (2940, 3081), 5: (367
 
 gene = fasta_read(gene_path)
 
-for i in range(1,6):
-	exon = exons[i]
+for key in exons.keys():
+	exon = exons[key]
 	a, b = exon
 	exon = gene[a:b]
 
 	print(len(exon))
 
-	fasta_write(output_path.format(i), exon, "Exon {}".format(i))
+	fasta_write(output_path.format(key), exon, "Exon {}".format(key))
